@@ -290,8 +290,8 @@ function reverseString(str) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  return str.split('').sort().join('');
 }
 
 /**
@@ -306,8 +306,8 @@ function orderAlphabetically(/* str */) {
  *   containsSubstring('JavaScript is Fun', 'Python') => false
  *   containsSubstring('12345', '34') => true
  */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  return(str.indexOf(substring)!=-1?true:false);
 }
 
 /**
@@ -324,8 +324,15 @@ function containsSubstring(/* str, substring */) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  let vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'];
+  let num = 0;
+  for(let i = 0; i<str.length; i++){
+    if (vowels.includes(str[i])){
+      num++;
+    }
+  }
+  return num;
 }
 
 /**
@@ -341,8 +348,18 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let j = 0;
+  str = str.toUpperCase();
+  str = str.replaceAll(' ', '');
+  for(let i = str.length-1; i >=0; i--){
+    if(str[i] == str[j]){
+      j++;
+    }else{
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
