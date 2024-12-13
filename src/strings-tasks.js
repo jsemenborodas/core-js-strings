@@ -200,8 +200,14 @@ function sumOfCodes(str) {
  *   startsWith('Hello World', 'World') => false
  *   startsWith('Hello World', 'Hello') => true
  */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  for(let i = 0; i < substr.length; i++){
+    if(str[i] == substr[i]){
+    }else{
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -215,8 +221,17 @@ function startsWith(/* str, substr */) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  let j = 0;
+  for(let i = substr.length; i > 0; i--){
+    console.log(str[str.length-i] + substr[j]);
+    if(str[str.length-i]==substr[j]){
+      ++j;
+    }else{
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -232,8 +247,18 @@ function endsWith(/* str, substr */) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes,seconds) {
+  if(minutes >= 10){
+
+  }else{
+    minutes = '0' + minutes;
+  }
+  if(seconds >= 10){
+
+  }else{
+    seconds = '0' + seconds;
+  }
+  return(minutes + ':' + seconds);
 }
 
 /**
@@ -246,8 +271,12 @@ function formatTime(/* minutes, seconds */) {
  *   reverseString('abcdef') => 'fedcba'
  *   reverseString('12345') => '54321'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let reverse = '';
+  for(let i = str.length-1; i >= 0; --i ){
+    reverse += str[i];
+  }
+  return reverse;
 }
 
 /**
