@@ -58,7 +58,7 @@ function isString(value) {
  *   concatenateStrings('', 'bb') => 'bb'
  */
 function concatenateStrings(value1, value2) {
-  return value1 + value2;
+  return `${value1}${value2}`;
 }
 
 /**
@@ -73,10 +73,7 @@ function concatenateStrings(value1, value2) {
  *   getFirstChar('') => ''
  */
 function getFirstChar(value) {
-  if (value === '') {
-    return '';
-  }
-  return value[0];
+  return value.charAt(0);
 }
 
 /**
@@ -138,6 +135,9 @@ function removeTrailingWhitespaces(value) {
  *   repeatString('abc', -2) => ''
  */
 function repeatString(str, times) {
+  if (times < 0) {
+    return '';
+  }
   return str.repeat(times);
 }
 
@@ -171,7 +171,10 @@ function removeFirstOccurrences(str, value) {
  */
 function removeLastOccurrences(str, value) {
   const index = str.lastIndexOf(value);
-  return str.slice(0, index) + str.slice(index + value.length);
+  if (str.includes(value)) {
+    return str.slice(0, index) + str.slice(index + value.length);
+  }
+  return str;
 }
 
 /**
@@ -188,10 +191,15 @@ function removeLastOccurrences(str, value) {
  */
 function sumOfCodes(str) {
   let sum = 0;
-  for (let i = 0; i < str.length; i += 1) {
-    sum += str[i].charCodeAt();
+  if (typeof str === 'string') {
+    if (str.length > 0) {
+      for (let i = 0; i < str.length; i += 1) {
+        sum += str[i].charCodeAt();
+      }
+      return sum;
+    }
   }
-  return sum;
+  return 0;
 }
 
 /**
@@ -345,9 +353,12 @@ function countVowels(str) {
  */
 function isPalindrome(str) {
   let j = 0;
-  const formatStr = str.toUpperCase().replaceAll(' ', '');
+  const formatStr = str
+    .toUpperCase()
+    .replaceAll(' ', '')
+    .replace(/[^a-zа-яё]/gi, '');
   for (let i = formatStr.length - 1; i >= 0; i -= 1) {
-    if (str[i] === formatStr[j]) {
+    if (formatStr[i] === formatStr[j]) {
       j += 1;
     } else {
       return false;
@@ -410,13 +421,24 @@ function findLongestWord(sentence) {
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
 function reverseWords(str) {
+  if (str === '') {
+    return '';
+  }
   const formatStr = str.split(' ');
   const reverse = [];
-  for (let i = 0; i < formatStr.length; i += 1) {
-    for (let j = formatStr[i].length - 1; j >= 0; j -= 1) {
-      reverse.push(formatStr[i][j]);
+  if (!str.includes(' ')) {
+    for (let i = str.length - 1; i >= 0; i -= 1) {
+      reverse.push(str[i]);
     }
-    reverse.push(' ');
+  } else {
+    for (let i = 0; i < formatStr.length; i += 1) {
+      for (let j = formatStr[i].length - 1; j >= 0; j -= 1) {
+        reverse.push(formatStr[i][j]);
+      }
+      if (i < formatStr.length - 1) {
+        reverse.push(' ');
+      }
+    }
   }
   return reverse.join('');
 }
@@ -458,7 +480,7 @@ function invertCase(str) {
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-  return `Hello, ${firstName} ${lastName}`;
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -472,7 +494,10 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
 function extractNameFromTemplate(text) {
-  const formattedText = text.replace('Hello, ', '');
+  const formattedText = text
+    .replace('Hello, ', '')
+    .replace(/[^a-zа-яё]/gi, ' ')
+    .trim();
   return formattedText;
 }
 
